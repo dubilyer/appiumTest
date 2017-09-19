@@ -27,9 +27,8 @@ public class AppTest {
     public void go() throws InterruptedException {
         sleep(5000);
         WebDriverWait wait = (new WebDriverWait(driver, 5));
-            WebElement element = driver.findElement(By.id("btn_left"));
-            wait.until(ExpectedConditions.visibilityOf(element));
-            element.click();
+        WebElement element = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("btn_left"))));
+        element.click();
     }
 
     @AfterClass
