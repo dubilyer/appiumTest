@@ -31,9 +31,9 @@ public class AppTest {
         sleep (5000);
         WebDriverWait wait = (new WebDriverWait(driver, 5));
         WebElement element = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("btn_left"))));
-        AppiumSetup.getScreenshot((AndroidDriver) driver, "/tmp/1.jpg");
+        AppiumSetup.getScreenshot((AndroidDriver) driver, "src/test/resources/1.jpg");
         element.click();
-        AppiumSetup.getScreenshot((AndroidDriver) driver, "/tmp/2.jpg");
+        AppiumSetup.getScreenshot((AndroidDriver) driver, "src/test/resources/2.jpg");
     }
 
 
