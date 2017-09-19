@@ -17,23 +17,37 @@ import static java.lang.Thread.sleep;
  * Unit test for simple App.
  */
 public class AppTest {
-    static AppiumDriver driver;
+    static AppiumDriver[] drivers = new AppiumDriver[2];
+
     @Before
     public void prepareDevice() throws MalformedURLException {
-       driver =  (new AppiumSetup()).getDriver();
+        drivers[0] = (new AppiumSetup()).getDriver("4724");
+        drivers[1] = (new AppiumSetup()).getDriver("4723");
     }
 
     @Test
     public void go() throws InterruptedException {
-        sleep(5000);
-        WebDriverWait wait = (new WebDriverWait(driver, 5));
-        WebElement element = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("btn_left"))));
-        element.click();
+        for (int i = 0; i < drivers.length; i++) {
+            final int finalI = i;
+            new Thread(()-> {
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                WebDriverWait wait = (new WebDriverWait(drivers[finalI], 5));
+                WebElement element = wait.until(ExpectedConditions.visibilityOf(drivers[finalI].findElement(By.id("btn_left"))));
+                element.click();
+            });
+        }
     }
 
     @AfterClass
     public static void CloseDevice() throws InterruptedException {
         sleep(1000);
-        driver.quit();
+        for (int i = 0; i < drivers.length; i++) {
+            drivers[0].quit();
+        }
+
     }
 }

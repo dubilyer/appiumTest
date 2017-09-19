@@ -12,7 +12,7 @@ import java.net.URL;
 public class AppiumSetup {
     DesiredCapabilities capabilities = new DesiredCapabilities();
 
-    public AppiumDriver getDriver() throws MalformedURLException {
+    public AppiumDriver getDriver(String port) throws MalformedURLException {
         File appDir = new File("/");
         File app = new File(appDir, "gettaxi.apk");
         capabilities.setCapability("deviceName", "Android Tablet");
@@ -20,7 +20,7 @@ public class AppiumSetup {
         capabilities.setCapability("app", app.getAbsolutePath());
 
         AppiumDriver driver = new AndroidDriver(
-                new URL("http://10.80.6.93:4723/wd/hub"),
+                new URL("http://10.80.6.93:" + port + "/wd/hub"),
                 capabilities);
         return driver;
     }
